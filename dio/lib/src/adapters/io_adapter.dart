@@ -46,7 +46,8 @@ class DefaultHttpClientAdapter implements HttpClientAdapter {
     try {
       request = await requestFuture;
       //Set Headers
-      options.headers.forEach((k, v) => request.headers.set(k, v));
+      options.headers.forEach(
+          (k, v) => request.headers.set(k, v, preserveHeaderCase: true));
     } on SocketException catch (e) {
       if (e.message.contains('timed out')) _throwConnectingTimeout();
       rethrow;
@@ -86,7 +87,8 @@ class DefaultHttpClientAdapter implements HttpClientAdapter {
       stream,
       responseStream.statusCode,
       headers: headers,
-      isRedirect: responseStream.isRedirect||responseStream.redirects.isNotEmpty,
+      isRedirect:
+          responseStream.isRedirect || responseStream.redirects.isNotEmpty,
       redirects: responseStream.redirects
           .map((e) => RedirectRecord(e.statusCode, e.method, e.location))
           .toList(),
