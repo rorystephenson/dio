@@ -350,17 +350,13 @@ class _RequestConfig {
     this.headers = headers ?? {};
     this.extra = extra ?? {};
     this.contentType = contentType;
-    this.headers =
-        this.headers.map((key, v) => MapEntry(key.toLowerCase().toString(), v));
+    this.headers = this.headers.map((key, v) => MapEntry(key, v));
   }
 
   /// Http method.
   String method;
 
-  /// Http request headers. The keys of initial headers will be converted to lowercase,
-  /// for example 'Content-Type' will be converted to 'content-type'.
-  ///
-  /// You should use lowercase as the key name when you need to set the request header.
+  /// Http request headers.
   Map<String, dynamic> headers;
 
   /// Timeout in milliseconds for sending data.
